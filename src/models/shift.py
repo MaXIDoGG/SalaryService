@@ -12,7 +12,4 @@ class Shift(Base):
     employee_id: Mapped[int] = mapped_column(ForeignKey("employees.id"), nullable=False)
 
     employee: Mapped["Employee"] = relationship("Employee", back_populates="shifts")
-
-    
-
-    
+    stats: Mapped["Stat"] = relationship("Stat", back_populates="shift")

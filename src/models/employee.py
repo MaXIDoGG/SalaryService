@@ -21,3 +21,4 @@ class Employee(Base):
     is_active: Mapped[bool]
     
     shifts: Mapped["Shift"] = relationship("Shift", back_populates="employee")
+    stats: Mapped["Stat"] = relationship("Stat", back_populates="employee")
