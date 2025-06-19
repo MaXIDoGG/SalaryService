@@ -1,24 +1,13 @@
-from sqlalchemy import ForeignKey, text, Text
-from sqlalchemy.orm import relationship, Mapped, mapped_column
-from sqlalchemy import Enum as SQLEnum
-from src.database import Base, str_uniq, int_pk, str_null_true
-from datetime import date
-from enum import Enum
-
-class ParameterType(str, Enum):
-    FIRST_RESPONSE_TIME = "Время ответа на первое сообщение"
-    NEXT_RESPONSE_TIME = "Время ответа на последующие сообщения"
-    POLITENESS_RATING = "Оценка вежливости"
-    COMPETENCE_RATING = "Оценка компетентности"
-
-class CoefficientType(str, Enum):
-    POSITIVE = "Положительный"
-    NEGATIVE = "Негативный"
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.dialects.postgresql import ENUM
+from src.database import Base, int_pk
+from .enums.parameter_type import ParameterType
+from .enums.coefficient_type import CoefficientType
 
 class Coefficient(Base):
     id: Mapped[int_pk]
-    parameter: Mapped[ParameterType] = mapped_column(SQLEnum(ParameterType))
-    type: Mapped[CoefficientType] = mapped_column(SQLEnum(CoefficientType))
+    parameter: Mapped[ParameterType] = mapped_column(ENUM(ParameterType, create_type=False))
+    type: Mapped[CoefficientType] = mapped_column(ENUM(CoefficientType))
     norm: Mapped[float]
     base: Mapped[float]
     weight: Mapped[float]

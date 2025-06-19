@@ -1,9 +1,7 @@
-from sqlalchemy import ForeignKey, text, Text
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
-from sqlalchemy import Enum as SQLEnum
-from src.database import Base, str_uniq, int_pk, str_null_true
+from src.database import Base, int_pk
 from datetime import date
-from enum import Enum
 
 class Shift(Base):
     id: Mapped[int_pk]
