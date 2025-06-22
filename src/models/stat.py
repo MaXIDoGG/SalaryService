@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import ENUM
 from src.database import Base, str_uniq, int_pk, str_null_true
 from datetime import date
-from .enums.parameter_type import ParameterType
+from src.enums.parameter_type import ParameterType
 
 class Stat(Base):
     id: Mapped[int_pk]

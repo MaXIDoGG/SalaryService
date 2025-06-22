@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import ENUM
 from src.database import Base, int_pk
-from .enums.parameter_type import ParameterType
-from .enums.coefficient_type import CoefficientType
+from src.enums.parameter_type import ParameterType
+from src.enums.coefficient_type import CoefficientType
 
 class Coefficient(Base):
     id: Mapped[int_pk]
@@ -11,7 +11,7 @@ class Coefficient(Base):
     norm: Mapped[float]
     base: Mapped[float]
     weight: Mapped[float]
-    is_active: Mapped[bool]
+    is_positive: Mapped[bool]
     
     
     

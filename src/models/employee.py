@@ -1,7 +1,7 @@
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy import Enum as SQLEnum
 from src.database import Base, int_pk
-from .enums.position_type import PositionType
+from src.enums.position_type import PositionType
 
 class Employee(Base):
     id: Mapped[int_pk]

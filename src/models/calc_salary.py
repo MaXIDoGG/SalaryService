@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import ENUM
 from src.database import Base, int_pk
-from .enums.parameter_type import ParameterType
+from src.enums.parameter_type import ParameterType
 
 class CalcSalary(Base):
     id: Mapped[int_pk]
