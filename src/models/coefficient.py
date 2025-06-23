@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import ENUM
 from src.database import Base, int_pk
-from src.enums.parameter_type import ParameterType
-from src.enums.coefficient_type import CoefficientType
+from src.enums import ParameterType, CoefficientType
 
 class Coefficient(Base):
     id: Mapped[int_pk]

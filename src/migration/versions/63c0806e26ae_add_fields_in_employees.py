@@ -1,8 +1,8 @@
-"""Init
+"""add fields in employees
 
-Revision ID: 1bbe8061bb80
+Revision ID: 63c0806e26ae
 Revises: 
-Create Date: 2025-06-20 00:26:58.747888
+Create Date: 2025-06-23 21:34:58.171876
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = '1bbe8061bb80'
+revision: str = '63c0806e26ae'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -28,7 +28,7 @@ def upgrade() -> None:
     sa.Column('norm', sa.Float(), nullable=False),
     sa.Column('base', sa.Float(), nullable=False),
     sa.Column('weight', sa.Float(), nullable=False),
-    sa.Column('is_active', sa.Boolean(), nullable=False),
+    sa.Column('is_positive', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('employees',
@@ -37,7 +37,8 @@ def upgrade() -> None:
     sa.Column('surname', sa.String(), nullable=False),
     sa.Column('patronymic', sa.String(), nullable=False),
     sa.Column('position', sa.Enum('HEAD', 'SUPER_OPERATOR', 'SENIOR_OPERATOR', 'OPERATOR', name='positiontype'), nullable=False),
-    sa.Column('is_active', sa.Boolean(), nullable=False),
+    sa.Column('dismissed', sa.Boolean(), nullable=False),
+    sa.Column('status', sa.Enum('WORKING', 'BREAK', 'NOT_WORKING', name='statustype'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('calcsalarys',
