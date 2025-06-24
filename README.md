@@ -1,4 +1,4 @@
-# Сервис для расчета зарплаты (FastAPI + PostgreSQL)
+# Сервис расчета заработной платы для сотрудников технической поддержки (FastAPI + PostgreSQL)
 
 ## Стек технологий
 
@@ -22,12 +22,12 @@
 
 ### 1. Клонирование репозитория
 ```bash
-git clone https://github.com/MaXIDoGG/ad_placement_service
-cd ad_placement_service
+git clone https://github.com/MaXIDoGG/SalaryService
+cd SalaryService
 ```
 
 ### 2. Настройка окружения
-Создайте файл .env в корне проекта (пример есть в файле [.env.template](https://github.com/MaXIDoGG/ad_placement_service/blob/main/.env.template))
+Создайте файл .env в корне проекта (пример есть в файле [.env.template](https://github.com/MaXIDoGG/SalaryService/blob/main/.env.template))
 
 ### 3. Запуск
 ```bash
@@ -38,5 +38,4 @@ docker-compose up --build
 http://localhost:8000
 
 Документация API:
-http://localhost:8000/docs
-http://localhost:8000/redoc
+http://127.0.0.1:8000/core/docs
