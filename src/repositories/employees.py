@@ -1,14 +1,14 @@
 from typing import List
 
 from src.database import async_session_maker
-from sqlalchemy import select, update
+from sqlalchemy import select, update, func
 from src.models.employee import Employee as EmployeeDb
 from src.models.employee import Shift as ShiftDb
 from src.models.employee import Timeout as TimeoutDb
 from src.models.employee import Stat as StatDb
 from src.models.employee import CalcSalary as CalcSalaryDb
 from src.schemas.employee import Employee, Shift, Timeout, Stat
-from src.enums.status_type import StatusType
+from src.enums import StatusType, ParameterType
 
 
 class EmployeeRepository:
@@ -55,8 +55,8 @@ class EmployeeRepository:
         
     async def get_shift_by_id(self, id: int) -> ShiftDb|None:
         async with async_session_maker() as session:
-            results = await session.execute(select(ShiftDb).where(ShiftDb.id == id))
-            shift = results.scalars().one_or_none()
+            result = await session.execute(select(ShiftDb).where(ShiftDb.id == id))
+            shift = result.scalars().one_or_none()
             return shift
     
     async def create_employee_timeout(self, employee: EmployeeDb, timeout: Timeout) -> TimeoutDb:
@@ -92,5 +92,14 @@ class EmployeeRepository:
             await session.refresh(db_stat)
             return db_stat
         
+    async def get_stats_complaint(self, employee_id):
+        async with async_session_maker() as session:
+            total_complaints = await session.execute(
+                select(func.sum(StatDb.value))
+                .where(
+                    (StatDb.employee_id == employee_id) &
+                    (StatDb.parameter == ParameterType.CLIENT_COMPLAINT))
+            )
+            return total_complaints.scalar() or 0.0
             
            

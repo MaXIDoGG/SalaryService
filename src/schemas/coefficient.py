@@ -11,3 +11,7 @@ class Coefficient(BaseModel):
     base: float
     weight: float
     is_positive: bool
+    
+class CoefficientRead(Coefficient):
+    model_config = ConfigDict(from_attributes=True)
+    id: int

@@ -1,6 +1,7 @@
 from typing import List
 
 from src.repositories.employees import EmployeeRepository
+from src.repositories.coefficients import CoefficientRepository
 from src.schemas.employee import Employee, EmployeeRead, Shift, ShiftRead, Timeout, TimeoutRead, Stat, StatRead
 from src.enums import StatusType
 
@@ -9,6 +10,7 @@ class EmployeeService:
 
     def __init__(self, repository: EmployeeRepository) -> None:
         self.repository = repository
+        
 
     async def get_employees(self) -> List[EmployeeRead]:
         employees = await self.repository.get_employees()
@@ -48,6 +50,30 @@ class EmployeeService:
             return StatRead.model_validate(new_stat)
         else:
             raise Exception("Не удалось найти такой смены")
+        
+    async def calculate_salary(self, employee_id: int):
+        total_complaints = await self.repository.get_stats_complaint(employee_id)
+        
+        # Получаем коэффициент для жалоб
+        coeff_repository = CoefficientRepository()
+        complaint_coeff = await coeff_repository.get_complaint_coefficient()
+        
+        if complaint_coeff:
+            if total_complaints > complaint_coeff.base:
+                salary_penalty = (total_complaints - complaint_coeff.base) * complaint_coeff.weight
+            else:
+                salary_penalty = 0.0
+        else:
+            raise Exception("Нет коэффициента для жалобы")
+        
+        # Обновляем CalcSalary
+        salary_record = CalcSalary(
+            parameter=ParameterType.CLIENT_COMPLAINT,
+            total=-salary_penalty,  # Отрицательное значение
+            employee_id=employee_id
+        )
+        
+        
             
             
         

@@ -5,3 +5,4 @@ class ParameterType(str, Enum):
     NEXT_RESPONSE_TIME = "Время ответа на последующие сообщения"
     POLITENESS_RATING = "Оценка вежливости"
     COMPETENCE_RATING = "Оценка компетентности" 
+    CLIENT_COMPLAINT = "Жалоба клиента"
